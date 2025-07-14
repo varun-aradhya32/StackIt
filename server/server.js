@@ -30,10 +30,10 @@ app.use('/api/questions', questionRoutes);
 app.use('/api/answers', answerRoutes);
 
 // Serve React frontend
-app.use(express.static(path.join(__dirname, '../client/build')));
-app.get('*', (req, res) => {
-  res.sendFile(path.resolve(__dirname, '../client/build/index.html'));
-});
+//app.use(express.static(path.join(__dirname, '../client/build')));
+//app.get('*', (req, res) => {
+ // res.sendFile(path.resolve(__dirname, '../client/build/index.html'));
+//});
 
 // Global error handler
 app.use((err, req, res, next) => {
