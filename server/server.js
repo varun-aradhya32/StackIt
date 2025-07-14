@@ -36,3 +36,13 @@ app.use((err, req, res, next) => {
 
 const PORT = process.env.PORT || 5000;
 app.listen(PORT, () => console.log(`🚀 Server running on port ${PORT}`));
+
+const path = require('path');
+
+// Serve static files from the React app build folder
+app.use(express.static(path.join(__dirname, 'client/build')));
+
+// For any route not matching API, send React's index.html (for client routing)
+app.get('*', (req, res) => {
+  res.sendFile(path.join(__dirname, 'client/build', 'index.html'));
+});
