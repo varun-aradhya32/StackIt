@@ -15,7 +15,7 @@ connectDB();
 const app = express();
 
 app.use(cors({
-  origin: process.env.FRONTEND_URL || 'https://stack-it-frontend-7yig-9nxkihexq-varun-aradhya32s-projects.vercel.app/',
+  origin: process.env.FRONTEND_URL || 'https://stack-it-frontend-7yig.vercel.app/',
   credentials: true,
   methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
   allowedHeaders: ['Content-Type', 'Authorization']
