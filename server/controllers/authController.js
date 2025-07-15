@@ -45,17 +45,27 @@ const registerUser = async (req, res) => {
 // @route   POST /api/auth/login
 const loginUser = async (req, res) => {
   const { email, password } = req.body;
+  console.log('Login attempt:', { email, password });
 
   try {
     const user = await User.findOne({ email });
-    if (user && (await bcrypt.compare(password, user.password))) {
+    if (!user) {
+      console.log('User not found');
+      return res.status(401).json({ message: 'Invalid credentials' });
+    }
+
+    const isMatch = await bcrypt.compare(password, user.password);
+    console.log('Password match:', isMatch);
+
+    if (isMatch) {
       res.status(200).json({
         _id: user._id,
-        username: user.username,   // send username here too
+        username: user.username,
         email: user.email,
         token: generateToken(user._id),
       });
     } else {
+      console.log('Password incorrect');
       res.status(401).json({ message: 'Invalid credentials' });
     }
   } catch (error) {
@@ -63,5 +73,6 @@ const loginUser = async (req, res) => {
     res.status(500).json({ message: 'Server error' });
   }
 };
+
 
 module.exports = { registerUser, loginUser };
